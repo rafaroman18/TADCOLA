@@ -2,13 +2,11 @@
 #include "tadpiladinamico.h"
 #include "tadcoladinamico.h"
 using namespace std;
-void invertir (Cola<int> *,int,int);
+void invertir (Cola<int>&,int,int);
 int main()
 {
     int a=1,b=0;
     Cola<int> C,H;
-    Cola<int> *c;
-    c=&C;
     C.push(3);C.push(6);C.push(1);C.push(5);C.push(4);
     C.push(6);C.push(8);C.push(2);C.push(3);C.push(0);
     H=C;
@@ -18,7 +16,7 @@ int main()
         H.pop();
     }
     cout<<endl;
-    invertir(c,a,b);
+    invertir(C,a,b);
     while(!C.vacia())
     {
         cout<<C.frente()<<" ";
@@ -28,44 +26,45 @@ int main()
     return 0;
 }
 
-void invertir (Cola<int> *c,int a,int b)
+void invertir (Cola<int>& c,int a,int b)
 {
     Cola<int> AUX;
     Pila<int> P;
     bool valido=true;
-    while(c->frente()!=a && valido)
+    while(c.frente()!=a && valido)
     {
-        AUX.push(c->frente());
-        c->pop();
-        if(c->vacia())
+        AUX.push(c.frente());
+        c.pop();
+        if(c.vacia())
         {
             valido=false;
         }
     }
-    while(c->frente()!=b && valido)
+    while(c.frente()!=b && valido)
     {
-        P.push(c->frente());
-        c->pop();
-        if(c->vacia())
+        P.push(c.frente());
+        c.pop();
+        if(c.vacia())
         {
             valido= false;
         }
     }
     P.push(b);
-    c->pop();
+    c.pop();
     while(!P.vacia() && valido)
     {
         AUX.push(P.tope());
         P.pop();
     }
-    while(!c->vacia() && valido)
+    while(!c.vacia() && valido)
     {
-        AUX.push(c->frente());
-        c->pop();
+        AUX.push(c.frente());
+        c.pop();
     }
-    while(!AUX.vacia())
+    c=AUX;
+    /*while(!AUX.vacia())
     {
         c->push(AUX.frente());
         AUX.pop();
-    }
+    }*/
 }
